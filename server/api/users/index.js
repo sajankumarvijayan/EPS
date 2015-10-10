@@ -14,5 +14,5 @@ router.post('/create', controller.create);
 router.put('/user/:id', controller.update);
 router.patch('/user/:id', controller.update);
 router.delete('/user/:id', controller.destroy);
-
+router.get('/logout', controller.logout);
 module.exports = router;

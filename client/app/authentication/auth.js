@@ -14,7 +14,12 @@
         templateUrl: 'app/authentication/users/templates/users.template.html',
         controller:'UsersCtrl'
 
+      }).state('logout',{
+        url:'/logout',
+        templateUrl:'app/authentication/users/templates/logout.template.html',
+        controller:'UsersLogoutCtrl'
       })
+
   });
 
 

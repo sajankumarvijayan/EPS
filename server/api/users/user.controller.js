@@ -6,6 +6,8 @@
 var _ = require('lodash');
 var User = require('./user.model');
 var bcrypt = require('bcrypt-nodejs');
+var config = require('../../config/local.env');
+var jwt = require('jsonwebtoken');
 
 // check if user is available in DB.
 exports.index = function(req, res) {
@@ -21,10 +23,14 @@ exports.index = function(req, res) {
         if(!bcrypt.compareSync(req.body.password, users.password)){
             return res.status(400).json({authentication:"Failed !"});
         }
+      var token = jwt.sign(users,config.SESSION_SECRET,{
+        expiresInMinutes:1440 // will expire in 24hours
+      });
          var user = {};
              user.name = users.name;
             user.email = users.email;
             user.id = users._id;
+            user.token = token;
         return res.status(200).json(user);
     });
 };
@@ -80,6 +86,18 @@ exports.destroy = function(req, res) {
     });
 };
 
+// logout
+
+exports.logout = function(req,res){
+  var token = req.headers['x-access-token'];
+  if(token) {
+    jwt.verify(token, config.SESSION_SECRET, function (err, decoded) {
+     return res.status(200).json({success: true});
+    });
+  }else{
+    return res.status(401).json({authentication: "Failure !"});
+  }
+};
 function handleError(res, err) {
     return res.status(500).send(err);
 }
