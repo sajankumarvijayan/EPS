@@ -1,0 +1,20 @@
+
+<h1 class="page-header"> Forgot Password <i class="fa fa-question-circle"/> </h1>
+<form class="forgot-password-form">
+<div class="form-group has-success has-feedback">
+  <label class="control-label" for="inputGroupSuccess3">Email Address :</label>
+  <div class="input-group">
+    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+    <input type="text" placeholder="your email address" ng-model="user.email" class="form-control" id="inputGroupSuccess3" aria-describedby="inputGroupSuccess3Status">
+  </div>
+  <span class="glyphicon glyphicon-ok form-control-feedback" id="toogleIcon" aria-hidden="true"></span>
+  <span id="inputGroupSuccess3Status" class="sr-only">(success)</span>
+
+</div>
+  <div class="form-options">
+    <span class="pull-left" ng-show="status.isShow">{{status.message}}</span>
+    <a href="/" class="pull-right btn btn-default">Login here</a>
+    <a ng-click="onReset();" class="btn btn-default">Reset</a>
+
+  </div>
+</form>

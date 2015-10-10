@@ -1,15 +1,20 @@
 'use strict';
 
-angular.module('epsApp', [
-  'ngCookies',
-  'ngResource',
-  'ngSanitize',
-  'ui.router',
-  'ui.bootstrap'
-])
-  .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
-    $urlRouterProvider
-      .otherwise('/');
+(function(){
+  angular.module('epsApp', [
+    'ngCookies',
+    'ngResource',
+    'ngSanitize',
+    'ui.router',
+    'ui.bootstrap',
+    'epsApp.common'
+  ])
+    .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
+      $urlRouterProvider
+        .otherwise('/');
 
-    $locationProvider.html5Mode(true);
-  });
+      $locationProvider.html5Mode(true);
+    });
+
+
+})();

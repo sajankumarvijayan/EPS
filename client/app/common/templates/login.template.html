@@ -1,0 +1,32 @@
+<h1 class="page-header"><i class="fa fa-user"/> Account Access</h1>
+<form class="login-form">
+  <div class="form-group email-group has-success has-feedback">
+    <label class="control-label" for="loginEmail">Email :</label>
+    <div class="input-group email">
+      <span class="input-group-addon">@</span>
+      <input type="text" placeholder="Email Address.." ng-model="user.email" class="form-control" id="loginEmail" aria-describedby="loginEmailDescribe">
+    </div>
+    <span class="glyphicon glyphicon-ok form-control-feedback" id="toggleEmailIcon" aria-hidden="true"></span>
+    <span id="loginEmailDescribe" class="sr-only">(success)</span>
+  </div>
+
+  <div class="form-group pass-group has-success has-feedback">
+    <label class="control-label" for="loginPassword">Password :</label>
+    <div class="input-group pass">
+      <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+      <input type="password" placeholder="password" ng-model="user.password" class="form-control" id="loginPassword" aria-describedby="loginPasswordDescribe">
+    </div>
+    <span class="glyphicon glyphicon-ok form-control-feedback" id="togglePassIcon" aria-hidden="true"></span>
+    <span id="loginPasswordDescribe" class="sr-only">(success)</span>
+  </div>
+
+  <div class="form-button">
+    <button type="button" class="btn btn-primary btn-lg btn-block" ng-click="doAuthentication();">Access</button>
+  </div>
+
+  <div class="form-options">
+    <a href="/forgotpassword" class="pull-right">Forgot your password ?</a>
+    <span class="pull-left text-{{status.icon}}" ng-show="status.isShow">{{status.message}}</span>
+  </div>
+
+</form>

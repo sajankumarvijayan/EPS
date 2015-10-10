@@ -5,12 +5,16 @@
 
 var _ = require('lodash');
 var User = require('./user.model');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcrypt-nodejs');
 
 // check if user is available in DB.
 exports.index = function(req, res) {
     User.find({email:req.body.email},function (err, users) {
         if(err) { return handleError(res, err); }
+       if(users.length <= 0){
+         return res.status(400).json({authentication:"Failed !"});
+
+       }
         if(!bcrypt.compareSync(req.body.password, users.password)){
             return res.status(400).json({authentication:"Failed !"});
         }
