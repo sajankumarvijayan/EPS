@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('epsApp')
-  .controller('NavbarCtrl', function ($scope, $location) {
-    $scope.menu = [{
+  .controller('NavbarCtrl', function ($scope,$rootScope, $location) {
+    $rootScope.menu = [{
       'title': 'Home',
       'link': '/'
     }];

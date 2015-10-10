@@ -8,5 +8,5 @@ module.exports = {
     uri: 'mongodb://localhost/eps-dev'
   },
 
-  seedDB: false
+  seedDB: true
 };

@@ -9,16 +9,23 @@ var bcrypt = require('bcrypt-nodejs');
 
 // check if user is available in DB.
 exports.index = function(req, res) {
-    User.find({email:req.body.email},function (err, users) {
+    User.findOne({email:req.body.email},function (err, users) {
         if(err) { return handleError(res, err); }
+      console.log(users);
        if(users.length <= 0){
-         return res.status(400).json({authentication:"Failed !"});
+         return res.status(400).send('No user found');
 
        }
+      console.log(req.body.password);
+      console.log(users.password);
         if(!bcrypt.compareSync(req.body.password, users.password)){
             return res.status(400).json({authentication:"Failed !"});
         }
-        return res.status(200).json(users);
+         var user = {};
+             user.name = users.name;
+            user.email = users.email;
+            user.id = users._id;
+        return res.status(200).json(user);
     });
 };
 

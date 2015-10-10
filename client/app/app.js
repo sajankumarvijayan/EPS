@@ -7,7 +7,9 @@
     'ngSanitize',
     'ui.router',
     'ui.bootstrap',
-    'epsApp.common'
+    'ngStorage',
+    'epsApp.common',
+    'epsApp.authentication'
   ])
     .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
       $urlRouterProvider

@@ -9,22 +9,28 @@
   var app = angular.module('epsApp.common');
 
   //login controller.
-  app.controller('LoginCtrl',function($scope, ServiceCall, $filter, Common){
+  app.controller('LoginCtrl',function($scope, ServiceCall, $filter,
+                                      Common, $location, $localStorage){
     $scope.user = {};
     $scope.status = {};
     $scope.status.isShow = false; //default value
     $scope.status.message = "";// default value is gonna be a empty string for now.
 
+    if(typeof $localStorage.profile !== "undefined"){
+       $location.path('/profile');
+      return;
+    }
+
     $scope.doAuthentication = function(){
        if($scope.doValidateEmail() && $scope.doValidateInputField()){
             ServiceCall.login($scope.user).success(function(data){
-              //proceed to go
-              console.log(data);
+              $localStorage.profile = data;
+              $location.path('/profile');
             }).error(function(err){
               console.log(err);
                 $scope.status.isShow = true;
               $scope.status.icon = "danger";
-              $scope.status.message = err.authentication;
+              $scope.status.message = (err.authentication) ? err.authentication : err;
             });
        }else{
          $scope.status.isShow = true;
