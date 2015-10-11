@@ -13,7 +13,8 @@ bcrypt.hash("admin@123", null,null, function(err, hash) {
     User.create({
       name : 'Admin',
       email: 'admin@admin.com',
-      password : hash
+      password : hash,
+      role:'Admin_Role'
   });
 });
 

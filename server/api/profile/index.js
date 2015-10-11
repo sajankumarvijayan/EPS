@@ -8,11 +8,11 @@ var controller = require('./profile.controller');
 
 var router = express.Router();
 
-//router.post('/profile/dummy',controller.dummy);
-router.get('/profile/:id', controller.show);
-router.post('/profile/create', controller.create);
-router.put('/profile/update/:id', controller.update);
-router.patch('/profile/patch/:id', controller.update);
-router.delete('/profile/delete/:id', controller.destroy);
+router.get('/profile/dummy',controller.dummy);
+router.get('/userprofile', controller.show);
+router.post('/userprofile/create', controller.create);
+router.put('/userprofile/update/:id', controller.update);
+router.patch('/userprofile/patch/:id', controller.update);
+router.delete('/userprofile/delete/:id', controller.destroy);
 
 module.exports = router;

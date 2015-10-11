@@ -13,25 +13,26 @@ var jwt = require('jsonwebtoken');
 exports.index = function(req, res) {
     User.findOne({email:req.body.email},function (err, users) {
         if(err) { return handleError(res, err); }
-      console.log(users);
        if(users.length <= 0){
          return res.status(400).send('No user found');
 
        }
-      console.log(req.body.password);
-      console.log(users.password);
         if(!bcrypt.compareSync(req.body.password, users.password)){
             return res.status(400).json({authentication:"Failed !"});
         }
       var token = jwt.sign(users,config.SESSION_SECRET,{
         expiresInMinutes:1440 // will expire in 24hours
       });
-         var user = {};
-             user.name = users.name;
-            user.email = users.email;
-            user.id = users._id;
-            user.token = token;
+      var obj = {};
+          obj.isLogged = true;
+      var updated = _.merge(users, obj);
+      updated.save(function (err) {
+        if (err) { return handleError(res, err); }
+        var user = {};
+        user.token = token;
         return res.status(200).json(user);
+      });
+
     });
 };
 
@@ -92,10 +93,26 @@ exports.logout = function(req,res){
   var token = req.headers['x-access-token'];
   if(token) {
     jwt.verify(token, config.SESSION_SECRET, function (err, decoded) {
-     return res.status(200).json({success: true});
+      if(err){handleError(res,err); return}
+      var obj = {};
+      obj.isLogged = false;
+      User.findOne({email:decoded.email},function (err, users) {
+        if (err) {
+          return handleError(res, err);
+        }
+
+        var updated = _.merge(users, obj);
+        updated.save(function (err) {
+          if (err) { return handleError(res, err); }
+          res.status(200).json({success: true});
+          return;
+        });
+      });
+
+
     });
   }else{
-    return res.status(401).json({authentication: "Failure !"});
+     res.status(401).json({authentication: "Failure !"});
   }
 };
 function handleError(res, err) {

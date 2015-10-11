@@ -9,18 +9,20 @@
       app.controller('UsersCtrl',function($scope,$localStorage, $location, $timeout, ServiceCall){
 
         if(typeof $localStorage.profile === "undefined"){$location.path('/'); return;}
-           $scope.username =  $localStorage.profile.name;
+        ServiceCall.getProfile().success(function(data){
+          $scope.username =  data.name;
+        }).error(function(err){
+           console.log(err);
+           delete $localStorage.profile;
+           $location.path('/');
+        });
         $timeout(function(){
             $scope.menu.push({title:'Profile', link : '/profile'},{title:'Management', link:'/management'},
               {title:'Setting', link:'/setting'},{title:'Logout', link:'/logout'});
           },500);
 
 
-          //ServiceCall.saveProfile($scope.userObj).success(function(data){
-          //    console.log(data);
-          //}).error(function(err){
-          //   console.log(err);
-          //});
+
 
       });
 

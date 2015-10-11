@@ -18,8 +18,9 @@
         $http.defaults.headers.common['x-access-token'] =  $localStorage.profile.token;
         return $http.post('/api/profiles/profile/dummy', angular.toJson(params));
       },
-      getProfile:function(id){
+      getProfile:function(){
         $http.defaults.headers.common['x-access-token'] =  $localStorage.profile.token;
+        return $http.get('/api/profiles/userprofile');
 
       },
       logout:function(){
