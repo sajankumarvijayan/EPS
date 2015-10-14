@@ -43,20 +43,24 @@ exports.show = function(req, res) {
     obj.name = decoded.name;
     obj.id = decoded._id;
     console.log(decoded.isLogged);
+    var isAuthenticated = false;
     User.findOne({email:decoded.email},function (err, users) {
       if(err) { return handleError(res, err); }
+      console.log(users.isLogged);
+
       if(!users.isLogged){
         res.status(401).json({authentication:'Failure !'});
-        return;
+      }else{
+        Profile.findById(obj.id, function (err, users) {
+          if(err) { return handleError(res, err); }
+          if(!users) { return res.status(200).json(obj); } // should return if user has updated their profile.
+          return res.status(200).json(users); // if user didn't have profile info. Simply return name & id of the user.
+        });
       }
 
     });
 
-    Profile.findById(obj.id, function (err, users) {
-      if(err) { return handleError(res, err); }
-      if(!users) { return res.status(200).json(obj); } // should return if user has updated their profile.
-      return res.status(200).json(users); // if user didn't have profile info. Simply return name & id of the user.
-    });
+
 
   });
 

@@ -16,10 +16,7 @@
            delete $localStorage.profile;
            $location.path('/');
         });
-        $timeout(function(){
-            $scope.menu.push({title:'Profile', link : '/profile'},{title:'Management', link:'/management'},
-              {title:'Setting', link:'/setting'},{title:'Logout', link:'/logout'});
-          },500);
+
 
 
 
@@ -35,6 +32,11 @@
          }).error(function(err){
            console.log(err)
          });
+
+     });
+
+     app.controller('UsersManagementCtrl',function($scope,ServiceCall,$localStorage,$location){
+       if(typeof $localStorage.profile === "undefined"){$location.path('/'); return;}
 
      });
 

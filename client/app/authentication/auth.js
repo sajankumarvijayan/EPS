@@ -18,6 +18,10 @@
         url:'/logout',
         templateUrl:'app/authentication/users/templates/logout.template.html',
         controller:'UsersLogoutCtrl'
+      }).state('management',{
+        url:'/management',
+        templateUrl:'app/authentication/users/templates/management.template.html',
+        controller:'UsersManagementCtrl'
       })
 
   });

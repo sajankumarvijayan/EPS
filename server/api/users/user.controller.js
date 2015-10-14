@@ -30,6 +30,7 @@ exports.index = function(req, res) {
         if (err) { return handleError(res, err); }
         var user = {};
         user.token = token;
+        user.role = users.role;
         return res.status(200).json(user);
       });
 
